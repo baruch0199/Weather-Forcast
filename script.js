@@ -11,6 +11,12 @@ let LngListener = "";
 let flag = true;
 let flagTwo = true;
 
+// Update latitude and longitude
+const updateLatAndLng = (lat, lng) => {
+  LatListener = lat;
+  LngListener = lng;
+};
+
 ////navbar links activate these functions
 function hourly() {
   const city = select.value;
@@ -42,26 +48,26 @@ currentBtn.addEventListener("click", () => {
 
 for (const cityObj of israelCitiesArrOfObj) {
   const { city, lat, lng } = cityObj; //55 cities;
-  //Add city each time to select variable -> TOTAL 55 times
+
   select.innerHTML += `<option value="${city}">${city}</option>`;
-  //On change
 
   select.addEventListener("change", callGetCityForCastDaily);
   //call getCityForCast to show specific area
   function callGetCityForCastDaily() {
     if (flag) {
       if (select.value === city) {
-        LatListener = lat;
-        LngListener = lng;
+        updateLatAndLng(lat, lng);
         getCityForCastDaily(lat, lng, city);
       }
     } else {
       if (flagTwo) {
         if (select.value === city) {
+          updateLatAndLng(lat, lng);
           getCityForCastHourly(lat, lng, city);
         }
       } else {
         if (select.value === city) {
+          updateLatAndLng(lat, lng);
           getCityForCastCurrent(lat, lng, city);
         }
       }
@@ -76,15 +82,13 @@ for (const cityObj of israelCitiesArrOfObj) {
 /////////////////// daily
 async function getCityForCastDaily(lat, lng, city) {
   flag = true;
-  console.log("DAILY ---> " + flag);
+  // console.log("DAILY ---> " + flag);
   try {
     let response = await fetch(
       `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&units=metric&appid=7cdf68e1872fb5b2e62035f03e64bd11`
     );
     let output = await response.json();
-    // i think the problem here, daily is not exists when i am passing --> "&exclude=minutely,hourly,daily"
     const { daily } = output;
-    console.log(daily);
 
     //feels like object
     let feelsLike = [];
@@ -129,14 +133,13 @@ async function getCityForCastDaily(lat, lng, city) {
 async function getCityForCastHourly(lat, lng, city, pic) {
   flag = false;
   flagTwo = true;
-  console.log("HOURLY ---> FLAG one: " + flag + " and FLAG two: " + flagTwo);
+  // console.log("HOURLY ---> FLAG one: " + flag + " and FLAG two: " + flagTwo);
   let html = "";
   try {
     let response = await fetch(
       `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&units=metric&appid=7cdf68e1872fb5b2e62035f03e64bd11`
     );
     let output = await response.json();
-    // i think the problem here, daily is not exists when i am passing --> "&exclude=minutely,hourly,daily"
     const { hourly: hourlyArrOfObj } = output;
 
     for (let i = 0; i < 8; i++) {
@@ -145,14 +148,14 @@ async function getCityForCastHourly(lat, lng, city, pic) {
       const day = new Date(hourlyObj.dt * 1000).toString().slice(0, 11);
 
       if (hourlyArrOfObj[i].temp >= 21) {
-        hourlyPic = "sunny";
+        pic = "sunny";
       } else if (hourlyArrOfObj[i].temp < 21 && hourlyArrOfObj[i].temp > 11) {
-        hourlyPic = "partly_cloudy";
+        pic = "partly_cloudy";
       } else if (hourlyArrOfObj[i].temp <= 11) {
-        hourlyPic = "cloudy";
+        pic = "cloudy";
       }
 
-      html += hourlyToHtml(hourlyObj, city, i, hour, day, hourlyPic);
+      html += hourlyToHtml(hourlyObj, city, i, hour, day, pic);
     }
     weatherForeCastData.innerHTML = html;
   } catch (err) {
@@ -165,7 +168,7 @@ async function getCityForCastHourly(lat, lng, city, pic) {
 async function getCityForCastCurrent(lat, lng, city) {
   flag = false;
   flagTwo = false;
-  console.log("HOURLY ---> FLAG one: " + flag + " and FLAG two: " + flagTwo);
+  // console.log("HOURLY ---> FLAG one: " + flag + " and FLAG two: " + flagTwo);
 
   let response = await fetch(
     `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&units=metric&appid=7cdf68e1872fb5b2e62035f03e64bd11`
@@ -200,7 +203,7 @@ const dailyToHtml = function (city, day, feelsLike, temp, pic, i) {
         src="pictures/${pic}.png" alt="..."/>
     </div>
     <div class="item-card-content">
-      <h6>${city}</h6>
+      <h6 class="city">${city}</h6>
       <p class="daily-days">${day}</p>
       <p class="daily-paragraph">morning: ${Math.round(temp.morn)}°</p>
       <p class="daily-paragraph">day: ${Math.round(temp.day)}°</p>
@@ -219,7 +222,7 @@ const hourlyToHtml = function (hourlyObj, city, i, hour, day, hourlyPic) {
          src="pictures/${hourlyPic}.png" alt="..."/>
      </div>
      <div class="item-card-content">
-       <h6>${city}</h6>
+       <h6 class="city">${city}</h6>
        <p class="hourly-days">${day}</p>
        <p class="hourly-paragraph hour">hour: ${hour}</p>
        <p class="hourly-paragraph">temp:${Math.round(hourlyObj.temp)}°</p>

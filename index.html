@@ -24,88 +24,92 @@
     <title>weather</title>
   </head>
   <body>
-    <!--navbar-->
-    <div style="position: sticky">
-      <nav
-        class="navbar background-transparent position-fixed w-100 d-lg-none"
-        aria-label="First navbar "
-      >
-        <div class="container-fluid">
-          <button
-            class="navbar burger-icon px-2 burger-padding collapsed ms-3 mt-3 bg-white"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarsExample01"
-            aria-controls="navbarsExample01"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon px-2"></span>
-          </button>
+    <div class="bla">
+      <!--navbar-->
+      <div style="position: sticky">
+        <nav
+          class="navbar background-transparent position-fixed w-100 d-lg-none"
+          aria-label="First navbar "
+        >
+          <div class="container-fluid">
+            <button
+              class="navbar burger-icon px-2 burger-padding collapsed ms-3 mt-3 bg-white"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarsExample01"
+              aria-controls="navbarsExample01"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon px-2"></span>
+            </button>
 
-          <div class="navbar-collapse collapse" id="navbarsExample01">
-            <ul class="navbar-nav me-auto mt-3 cursor-pointer1">
-              <li class="nav-item">
-                <a class="nav-link text-dark ms-3" onclick="daily()">Daily</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-dark ms-3" onclick="hourly()">Hourly</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-dark ms-3" onclick="current()"
-                  >Current</a
-                >
-              </li>
-            </ul>
+            <div class="navbar-collapse collapse" id="navbarsExample01">
+              <ul class="navbar-nav me-auto mt-3 cursor-pointer1">
+                <li class="nav-item">
+                  <a class="nav-link text-dark ms-3" onclick="daily()">Daily</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-dark ms-3" onclick="hourly()"
+                    >Hourly</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-dark ms-3" onclick="current()"
+                    >Current</a
+                  >
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
-      </nav>
-    </div>
-
-    <div class="main-wrapper">
-      <div class="main padding-top">
-        <div class="d-flex mb-5">
-          <input
-            class="current d-none d-lg-inline-block"
-            type="button"
-            value="current"
-          />
-          <input
-            class="hourly d-none d-lg-inline-block ms-4"
-            type="button"
-            value="hourly"
-          />
-          <input
-            class="daily d-none d-lg-inline-block ms-4"
-            type="button"
-            value="daily"
-          />
-
-          <div class="margin-bottom">
-            <label class="label-of-select" for="select">Choose a city:</label>
-            <select
-              class="select ps-3 margin-left"
-              name="select"
-              id="select"
-            ></select>
-          </div>
-        </div>
-
-        <div class="weather-forecast-data"></div>
+        </nav>
       </div>
-      <div class="credit-section-wrapper">
-        <a
-          class="credits-wheather-forcast-data"
-          href="https://openweathermap.org/"
-        >
-          ©️ Weather forecast data from - openweathermap
-        </a>
-        <a
-          href="https://www.flaticon.com/free-icons/cloud"
-          title="cloud icons"
-          class="credits-weather-icons"
-          >©️ cloud, sun cloud computing created by Freepik - Flaticon</a
-        >
+
+      <div class="main-wrapper">
+        <div class="main padding-top">
+          <div class="menu d-flex">
+            <input
+              class="current d-none d-lg-inline-block"
+              type="button"
+              value="current"
+            />
+            <input
+              class="hourly d-none d-lg-inline-block ms-4"
+              type="button"
+              value="hourly"
+            />
+            <input
+              class="daily d-none d-lg-inline-block ms-4"
+              type="button"
+              value="daily"
+            />
+
+            <div class="choose-a-city">
+              <label class="label-of-select" for="select">Choose a city:</label>
+              <select
+                class="select ps-3 margin-left"
+                name="select"
+                id="select"
+              ></select>
+            </div>
+          </div>
+
+          <div class="weather-forecast-data"></div>
+          <div class="credit-section-wrapper">
+            <a
+              class="credits-weather-forecast-data"
+              href="https://openweathermap.org/"
+            >
+              ©️ Weather forecast data from - openweathermap
+            </a>
+            <a
+              href="https://www.flaticon.com/free-icons/cloud"
+              title="cloud icons"
+              class="credits-weather-icons"
+              >©️ Cloud, sun cloud computing created by Freepik - Flaticon</a
+            >
+          </div>
+        </div>
       </div>
     </div>
   </body>
