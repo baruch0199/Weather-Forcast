@@ -51,31 +51,29 @@ for (const cityObj of israelCitiesArrOfObj) {
 
   select.innerHTML += `<option value="${city}">${city}</option>`;
 
-  select.addEventListener("change", callGetCityForCastDaily);
+  select.addEventListener("change", getCityForCast);
   //call getCityForCast to show specific area
-  function callGetCityForCastDaily() {
+  function getCityForCast() {
     if (flag) {
       if (select.value === city) {
         updateLatAndLng(lat, lng);
         getCityForCastDaily(lat, lng, city);
       }
+    } else if (flagTwo) {
+      if (select.value === city) {
+        updateLatAndLng(lat, lng);
+        getCityForCastHourly(lat, lng, city);
+      }
     } else {
-      if (flagTwo) {
-        if (select.value === city) {
-          updateLatAndLng(lat, lng);
-          getCityForCastHourly(lat, lng, city);
-        }
-      } else {
-        if (select.value === city) {
-          updateLatAndLng(lat, lng);
-          getCityForCastCurrent(lat, lng, city);
-        }
+      if (select.value === city) {
+        updateLatAndLng(lat, lng);
+        getCityForCastCurrent(lat, lng, city);
       }
     }
   }
 
   //call getCityForCast and show all data in the page
-  callGetCityForCastDaily();
+  getCityForCast();
 }
 
 ////////////////////////////////////////
